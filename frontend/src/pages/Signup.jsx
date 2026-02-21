@@ -15,19 +15,22 @@ import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 
-function Login() {
+function Signup() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await fetch("http://localhost:5000/api/users/login", {
+      const response = await fetch("http://localhost:5000/api/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          name,
           email,
           password,
         }),
@@ -39,33 +42,43 @@ function Login() {
         throw new Error(data.message || "Registration failed");
       }
 
-      console.log("User Logged in successfully :", data);
-      toast.success("User Logged in successfully!");
+      console.log("User registered:", data);
+      toast.success("User registered successfully!");
     } catch (error) {
       toast.error(error.message);
     }
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/40 px-4">
-      <Card className="w-full max-w-sm ">
+      <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
+          <CardTitle>Signup a new account</CardTitle>
           <CardAction>
-            <Link to="/signup">
-              <Button variant="link">Sign Up</Button>
+            <Link to="/login">
+              <Button variant="link">Sign In</Button>
             </Link>
           </CardAction>
         </CardHeader>
         <CardContent>
-          <form className="flex flex-col gap-6" onSubmit={handleLogin}>
+          <form className=" flex flex-col gap-6" onSubmit={handleRegister}>
             <div className="flex flex-col gap-6">
+              <div className="grid gap-2">
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  id="name"
+                  type="text"
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="m@example.com"
                   onChange={(e) => setEmail(e.target.value)}
+                  placeholder="m@example.com"
                   required
                 />
               </div>
@@ -87,12 +100,12 @@ function Login() {
                 />
               </div>
             </div>
-            <CardFooter className="  flex-col gap-2 px-0">
+            <CardFooter className="flex-col px-0 gap-2">
               <Button type="submit" className="w-full">
-                Login
+                Signup
               </Button>
               <Button variant="outline" className="w-full">
-                Login with Google
+                Signup with Google
               </Button>
             </CardFooter>
           </form>
@@ -101,4 +114,4 @@ function Login() {
     </div>
   );
 }
-export default Login;
+export default Signup;

@@ -40,7 +40,7 @@ export default function Navbar() {
           <Link to="/login">
             <Button variant="outline">Login</Button>
           </Link>
-          <Link to="/register">
+          <Link to="/signup">
             <Button>Register</Button>
           </Link>
         </div>
@@ -89,7 +89,7 @@ export default function Navbar() {
                   Login
                 </Button>
               </Link>
-              <Link to="/register" onClick={() => setIsOpen(false)}>
+              <Link to="/signup" onClick={() => setIsOpen(false)}>
                 <Button className="w-full">Register</Button>
               </Link>
             </div>
