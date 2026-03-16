@@ -44,7 +44,7 @@ function DialogComponent({ isOpen, setIsOpen, addTask }) {
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
-            <Label>Title</Label>
+            <Label className="mb-2">Title</Label>
             <Input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -53,7 +53,7 @@ function DialogComponent({ isOpen, setIsOpen, addTask }) {
           </div>
 
           <div>
-            <Label>Description</Label>
+            <Label className="mb-2">Description</Label>
             <Input
               value={description}
               onChange={(e) => setDescription(e.target.value)}

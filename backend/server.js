@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./db.js";
 import router from "./routes/userRoutes.js";
+import taskRoutes from "./routes/taskRoutes.js";
 
 dotenv.config();
 
@@ -15,7 +16,9 @@ const startServer = async () => {
     app.use(cors());
     app.use(express.json());
 
-    app.use("/api/users", router); //connect route in server
+    //connect route in server
+    app.use("/api/users", router);
+    app.use("/api/tasks", taskRoutes);
 
     app.get("/", (req, res) => {
       res.send("API is running...");

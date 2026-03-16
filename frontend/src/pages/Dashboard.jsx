@@ -2,11 +2,35 @@ import React from "react";
 import TaskCard from "@/Components/custom/TaskCard";
 import DialogComponent from "@/Components/custom/DialogComponent";
 import { Button } from "@/Components/ui/button";
+import axios from "axios";
 
 function Dashboard() {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const [tasks, setTasks] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const res = await axios.get(
+          "http://localhost:5000/api/tasks/get-tasks",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+
+        setTasks(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchTasks();
+  }, []);
 
   const addTask = (newTask) => {
     setTasks((prev) => [...prev, newTask]);
@@ -28,7 +52,7 @@ function Dashboard() {
       {/* Task Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {tasks.map((task) => (
-          <TaskCard key={task.id} task={task} />
+          <TaskCard key={task._id} task={task} />
         ))}
       </div>
 

@@ -14,10 +14,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -38,9 +43,11 @@ function Login() {
       if (!response.ok) {
         throw new Error(data.message || "Registration failed");
       }
-
+      login(data.token);
+      navigate("/dashboard");
       console.log("User Logged in successfully :", data);
       toast.success("User Logged in successfully!");
+      navigate("/");
     } catch (error) {
       toast.error(error.message);
     }

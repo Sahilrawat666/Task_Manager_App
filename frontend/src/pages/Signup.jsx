@@ -42,6 +42,7 @@ function Signup() {
         throw new Error(data.message || "Registration failed");
       }
 
+      localStorage.setItem("token", data.token);
       console.log("User registered:", data);
       toast.success("User registered successfully!");
     } catch (error) {

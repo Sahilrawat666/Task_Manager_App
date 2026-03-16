@@ -1,10 +1,23 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext.jsx";
+import { toast } from "sonner";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { isLoggedIn, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  isLoggedIn;
+
+  const handleLogout = () => {
+    logout(); // remove token from AuthContext
+    toast.success("Logged out successfully");
+    navigate("/login");
+  };
 
   const navLinkClass = ({ isActive }) =>
     isActive
@@ -37,12 +50,20 @@ export default function Navbar() {
 
         {/* Desktop Auth */}
         <div className="hidden md:flex items-center gap-2">
-          <Link to="/login">
-            <Button variant="outline">Login</Button>
-          </Link>
-          <Link to="/signup">
-            <Button>Register</Button>
-          </Link>
+          {isLoggedIn ? (
+            <Button variant="destructive" onClick={handleLogout}>
+              Logout
+            </Button>
+          ) : (
+            <>
+              <Link to="/login">
+                <Button variant="outline">Login</Button>
+              </Link>
+              <Link to="/signup">
+                <Button>Register</Button>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile Hamburger */}
