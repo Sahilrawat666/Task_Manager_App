@@ -9,30 +9,47 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import axios from "axios";
+import { toast } from "sonner";
 
 function DialogComponent({ isOpen, setIsOpen, addTask }) {
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
+  const [important, setImportant] = React.useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newTask = {
-      id: Date.now(), // unique id
-      title,
-      description,
-      status: "in progress",
-      important: false,
-    };
-    console.log(newTask);
+    try {
+      const token = localStorage.getItem("token");
 
-    addTask(newTask);
+      const res = await axios.post(
+        "http://localhost:5000/api/tasks/create-task",
+        {
+          title,
+          description,
+          status: "pending",
+          important,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
 
-    // reset form
-    setTitle("");
-    setDescription("");
+      // ✅ Add real task from DB
+      addTask(res.data.task);
 
-    setIsOpen(false);
+      // reset form
+      setTitle("");
+      setDescription("");
+      toast.success("Task added!");
+
+      setIsOpen(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -59,6 +76,14 @@ function DialogComponent({ isOpen, setIsOpen, addTask }) {
               onChange={(e) => setDescription(e.target.value)}
               required
             />
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={important}
+              onChange={(e) => setImportant(e.target.checked)}
+            />
+            <Label>Mark as Important</Label>
           </div>
 
           <DialogFooter>

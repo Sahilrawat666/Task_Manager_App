@@ -6,17 +6,18 @@ const router = express.Router();
 
 
 // CREATE TASK
-router.post("/create-task", async (req, res) => {
+router.post("/create-task", authMiddleware, async (req, res) => {
     try {
+        const { title, description, status, important } = req.body;
+        // console.log("REQ USER ID:", req.userId); // DEBUG
 
-        const { title, description, status, important, userId } = req.body;
 
         const task = new Task({
             title,
             description,
             status,
             important,
-            userId
+            userId: req.userId // ✅ from token, not client
         });
 
         await task.save();
@@ -30,7 +31,6 @@ router.post("/create-task", async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
 
 // GET ALL TASKS OF USER
 router.get("/get-tasks", authMiddleware, async (req, res) => {
@@ -49,17 +49,7 @@ router.get("/get-tasks", authMiddleware, async (req, res) => {
 
 });
 
-// router.get("/tasks", authMiddleware, async (req, res) => {
 
-//   const tasks = await Task.find({
-//     userId: req.userId
-//   });
-
-//   res.json(tasks);
-
-// });
-
-// UPDATE TASK
 router.put("/update-task/:id", async (req, res) => {
 
     try {

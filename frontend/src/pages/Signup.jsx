@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -12,13 +12,17 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { toast } from "sonner";
+import { AuthContext } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { register } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -41,10 +45,12 @@ function Signup() {
       if (!response.ok) {
         throw new Error(data.message || "Registration failed");
       }
+      register(data.token);
 
       localStorage.setItem("token", data.token);
       console.log("User registered:", data);
       toast.success("User registered successfully!");
+      navigate("/");
     } catch (error) {
       toast.error(error.message);
     }

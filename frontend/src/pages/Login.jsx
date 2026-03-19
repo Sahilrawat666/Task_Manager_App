@@ -44,7 +44,7 @@ function Login() {
         throw new Error(data.message || "Registration failed");
       }
       login(data.token);
-      navigate("/dashboard");
+      // navigate("/dashboard");
       console.log("User Logged in successfully :", data);
       toast.success("User Logged in successfully!");
       navigate("/");
