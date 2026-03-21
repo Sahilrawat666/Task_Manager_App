@@ -24,7 +24,7 @@ function DialogComponent({ isOpen, setIsOpen, addTask }) {
       const token = localStorage.getItem("token");
 
       const res = await axios.post(
-        "http://localhost:5000/api/tasks/create-task",
+        `${import.meta.env.VITE_API_URL}/api/tasks/create-task`,
         {
           title,
           description,
@@ -85,7 +85,6 @@ function DialogComponent({ isOpen, setIsOpen, addTask }) {
             />
             <Label>Mark as Important</Label>
           </div>
-
           <DialogFooter>
             <Button type="submit">Add Task</Button>
           </DialogFooter>

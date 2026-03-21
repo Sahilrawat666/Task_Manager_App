@@ -1,4 +1,5 @@
 import React from "react";
+// import { Label } from "radix-ui";
 
 function TaskCard({ task }) {
   return (
@@ -15,6 +16,14 @@ function TaskCard({ task }) {
       <p className="text-sm text-gray-600 mt-2">{task.description}</p>
 
       <p className="mt-2 text-xs">Status: {task.status}</p>
+      {/* <div className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          // checked={important}
+          onChange={(e) => setImportant(e.target.checked)}
+        />
+        <Label>Mark as Important</Label>
+      </div> */}
     </div>
   );
 }

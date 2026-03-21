@@ -1,7 +1,7 @@
 import React from "react";
-import TaskCard from "@/Components/custom/TaskCard";
-import DialogComponent from "@/Components/custom/DialogComponent";
-import { Button } from "@/Components/ui/button";
+import TaskCard from "@/components/custom/TaskCard";
+import DialogComponent from "@/components/custom/DialogComponent";
+import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ function Dashboard() {
         const token = localStorage.getItem("token");
 
         const res = await axios.get(
-          "http://localhost:5000/api/tasks/get-tasks",
+          `${import.meta.env.VITE_API_URL}/api/tasks/get-tasks`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
