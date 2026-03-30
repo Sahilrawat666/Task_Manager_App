@@ -5,10 +5,13 @@ import { Menu, X } from "lucide-react";
 import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext.jsx";
 import { toast } from "sonner";
+import { TaskContext } from "@/context/TaskContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { isLoggedIn, logout } = useContext(AuthContext);
+  const { clearTasks } = useContext(TaskContext);
+
   const navigate = useNavigate();
 
   isLoggedIn;
@@ -16,6 +19,7 @@ export default function Navbar() {
   const handleLogout = () => {
     logout(); // remove token from AuthContext
     toast.success("Logged out successfully");
+    clearTasks();
     navigate("/login");
   };
 

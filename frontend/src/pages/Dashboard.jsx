@@ -1,67 +1,38 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import TaskCard from "@/components/custom/TaskCard";
 import DialogComponent from "@/components/custom/DialogComponent";
 import { Button } from "@/components/ui/button";
-import axios from "axios";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { TaskContext } from "../context/TaskContext";
 
 function Dashboard() {
-  const [isOpen, setIsOpen] = React.useState(false);
-
-  const [tasks, setTasks] = React.useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const { tasks, addTask, deleteTask, loading } = useContext(TaskContext); // ✅ use context
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
 
-  React.useEffect(() => {
-    if (!token) {
-      // navigate("/login");
-      return;
-    }
+  if (!token) {
+    // optionally redirect if not logged in
+    // navigate("/login");
+  }
 
-    //get tasks
-    const fetchTasks = async () => {
-      try {
-        const res = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/tasks/get-tasks`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-
-        setTasks(res.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchTasks();
-  }, [token]);
-
-  // add task
-
-  const addTask = (newTask) => {
-    setTasks((prev) => [...prev, newTask]);
-  };
   const handleAddClick = () => {
-    const token = localStorage.getItem("token");
-
     if (!token) {
       toast.error("Please login to add tasks and save your progress");
       navigate("/login");
       return;
     }
-
     setIsOpen(true);
   };
 
-  // delete task and update dashboard
+  // Pass deleteTask from context directly to TaskCard
   const handleDelete = (id) => {
-    setTasks((prev) => prev.filter((task) => task._id !== id));
+    deleteTask(id); // updates context, so all pages update
   };
+
+  if (loading) return <p>Loading tasks...</p>;
 
   return (
     <div className="flex flex-col gap-6 p-6">
@@ -69,7 +40,7 @@ function Dashboard() {
         <p className="text-2xl font-semibold">Dashboard</p>
 
         <Button
-          className="bg-linear-to-r from-cyan-300 to-sky-500 active:scale-95  transition-transform duration-150 text-black"
+          className="bg-linear-to-r from-cyan-300 to-sky-500 active:scale-95 transition-transform duration-150 text-black"
           onClick={handleAddClick}
         >
           Add New Task
@@ -77,7 +48,7 @@ function Dashboard() {
       </div>
 
       {/* Task Grid */}
-      <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {tasks.map((task) => (
           <TaskCard key={task._id} task={task} onDelete={handleDelete} />
         ))}

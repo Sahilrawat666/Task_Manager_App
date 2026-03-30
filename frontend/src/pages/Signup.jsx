@@ -65,7 +65,9 @@ function Signup() {
           <CardTitle>Signup a new account</CardTitle>
           <CardAction>
             <Link to="/login">
-              <Button variant="link">Sign In</Button>
+              <Button variant="link" className="cursor-pointer">
+                Sign In
+              </Button>
             </Link>
           </CardAction>
         </CardHeader>
@@ -97,7 +99,7 @@ function Signup() {
                   <Label htmlFor="password">Password</Label>
                   <a
                     href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline cursor-pointer"
                   >
                     Forgot your password?
                   </a>
@@ -111,10 +113,10 @@ function Signup() {
               </div>
             </div>
             <CardFooter className="flex-col px-0 gap-2">
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full cursor-pointer">
                 Signup
               </Button>
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" className="w-full cursor-pointer">
                 Signup with Google
               </Button>
             </CardFooter>

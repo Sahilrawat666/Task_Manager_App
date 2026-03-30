@@ -5,7 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { Toaster } from "sonner";
-import Important from "./pages/Important";
+import ImportantTasks from "./pages/ImportantTasks";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/important" element={<Important />} />
+          <Route path="/important" element={<ImportantTasks />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
       </div>

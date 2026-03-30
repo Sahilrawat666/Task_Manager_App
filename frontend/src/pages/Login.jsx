@@ -1,27 +1,25 @@
-import React, { useState } from "react";
-
+import React, { useState, useContext } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
   CardAction,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { TaskContext } from "../context/TaskContext"; // ✅ import TaskContext
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useContext(AuthContext);
+  const { setUserToken } = useContext(TaskContext); // ✅ get context function
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -34,27 +32,26 @@ function Login() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
+          body: JSON.stringify({ email, password }),
         },
       );
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Registration failed");
+        throw new Error(data.message || "Login failed");
       }
-      login(data.token);
-      // navigate("/dashboard");
-      console.log("User Logged in successfully :", data);
+
+      login(data.token); // ✅ AuthContext login
+      setUserToken(data.token); // ✅ TaskContext fetches tasks immediately
+
       toast.success("User Logged in successfully!");
-      navigate("/");
+      navigate("/"); // redirect to dashboard
     } catch (error) {
       toast.error(error.message);
     }
   };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/40 px-4">
       <Card className="w-full max-w-sm ">
@@ -62,7 +59,9 @@ function Login() {
           <CardTitle>Login to your account</CardTitle>
           <CardAction>
             <Link to="/signup">
-              <Button variant="link">Sign Up</Button>
+              <Button variant="link" className="cursor-pointer">
+                Sign Up
+              </Button>
             </Link>
           </CardAction>
         </CardHeader>
@@ -97,11 +96,11 @@ function Login() {
                 />
               </div>
             </div>
-            <CardFooter className="  flex-col gap-2 px-0">
-              <Button type="submit" className="w-full">
+            <CardFooter className="flex-col gap-2 px-0">
+              <Button type="submit" className="w-full cursor-pointer">
                 Login
               </Button>
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" className="w-full cursor-pointer">
                 Login with Google
               </Button>
             </CardFooter>
@@ -111,4 +110,5 @@ function Login() {
     </div>
   );
 }
+
 export default Login;
