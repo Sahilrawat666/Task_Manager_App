@@ -12,11 +12,17 @@ function Dashboard() {
   const [tasks, setTasks] = React.useState([]);
   const navigate = useNavigate();
 
+  const token = localStorage.getItem("token");
+
   React.useEffect(() => {
+    if (!token) {
+      // navigate("/login");
+      return;
+    }
+
+    //get tasks
     const fetchTasks = async () => {
       try {
-        const token = localStorage.getItem("token");
-
         const res = await axios.get(
           `${import.meta.env.VITE_API_URL}/api/tasks/get-tasks`,
           {
@@ -33,9 +39,10 @@ function Dashboard() {
     };
 
     fetchTasks();
-  }, []);
+  }, [token]);
 
   // add task
+
   const addTask = (newTask) => {
     setTasks((prev) => [...prev, newTask]);
   };
@@ -49,6 +56,11 @@ function Dashboard() {
     }
 
     setIsOpen(true);
+  };
+
+  // delete task and update dashboard
+  const handleDelete = (id) => {
+    setTasks((prev) => prev.filter((task) => task._id !== id));
   };
 
   return (
@@ -67,7 +79,7 @@ function Dashboard() {
       {/* Task Grid */}
       <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {tasks.map((task) => (
-          <TaskCard key={task._id} task={task} />
+          <TaskCard key={task._id} task={task} onDelete={handleDelete} />
         ))}
       </div>
 

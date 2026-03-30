@@ -49,7 +49,7 @@ router.get("/get-tasks", authMiddleware, async (req, res) => {
 
 });
 
-
+// update tasks
 router.put("/update-task/:id", async (req, res) => {
 
     try {
