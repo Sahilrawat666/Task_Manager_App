@@ -86,7 +86,12 @@ function DialogComponent({ isOpen, setIsOpen, addTask }) {
             <Label>Mark as Important</Label>
           </div>
           <DialogFooter>
-            <Button type="submit">Add Task</Button>
+            <Button
+              type="submit"
+              className="cursor-pointer active:scale-95 transition transform duration-100"
+            >
+              Add Task
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>

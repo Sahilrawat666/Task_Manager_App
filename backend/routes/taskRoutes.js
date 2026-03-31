@@ -68,6 +68,22 @@ router.put("/update-task/:id", async (req, res) => {
 
 });
 
+router.put("/update-status/:id", async (req, res) => {
+    try {
+        const { status } = req.body;
+
+        const updatedTask = await Task.findByIdAndUpdate(
+            req.params.id,
+            { status },
+            { new: true }
+        );
+
+        res.json(updatedTask);
+    } catch (error) {
+        res.status(500).json({ message: "Error updating status" });
+    }
+});
+
 
 // DELETE TASK
 router.delete("/delete-task/:id", async (req, res) => {

@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext.jsx";
 import { toast } from "sonner";
 import { TaskContext } from "@/context/TaskContext";
+import zentask_i from "@/assets/zentask_i.png";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,11 +31,17 @@ export default function Navbar() {
 
   return (
     <nav className="w-full border-b bg-background">
-      <div className="container mx-auto flex h-16 items-center justify-between px-3">
+      <div className="container mx-auto flex h-16 items-center justify-between px-3 ">
         {/* Logo */}
-        <Link to="/" className="text-xl font-bold">
-          TaskManager
-        </Link>
+        <div className="w-40 h-12 flex items-center overflow-hidden">
+          <Link to="/" className="flex items-center">
+            <img
+              src={zentask_i}
+              alt="ZenTask Logo"
+              className="h-full w-auto object-contain scale-110"
+            />
+          </Link>
+        </div>
 
         {/* Desktop Links */}
         <div className="hidden sm:flex items-center gap-5">
@@ -55,7 +62,11 @@ export default function Navbar() {
         {/* Desktop Auth */}
         <div className="hidden md:flex items-center gap-2">
           {isLoggedIn ? (
-            <Button variant="destructive" onClick={handleLogout}>
+            <Button
+              variant="destructive"
+              onClick={handleLogout}
+              className="cursor-pointer"
+            >
               Logout
             </Button>
           ) : (

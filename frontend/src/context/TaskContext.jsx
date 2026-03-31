@@ -26,7 +26,8 @@ export const TaskProvider = ({ children }) => {
           { headers: { Authorization: `Bearer ${token}` } },
         );
         setTasks(res.data);
-        // console.log("taskdata ", res.data);
+        console.log("taskdata ", res.data);
+        console.log(token);
       } catch (err) {
         console.log(err);
         toast.error("Failed to load tasks");
