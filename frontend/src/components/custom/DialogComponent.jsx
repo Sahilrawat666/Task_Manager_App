@@ -11,16 +11,19 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import axios from "axios";
 import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 function DialogComponent({ isOpen, setIsOpen, addTask }) {
   const [title, setTitle] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [important, setImportant] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
+      setLoading(true);
       const token = localStorage.getItem("token");
 
       const res = await axios.post(
@@ -49,6 +52,8 @@ function DialogComponent({ isOpen, setIsOpen, addTask }) {
       setIsOpen(false);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -90,7 +95,14 @@ function DialogComponent({ isOpen, setIsOpen, addTask }) {
               type="submit"
               className="cursor-pointer active:scale-95 transition transform duration-100"
             >
-              Add Task
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Adding...
+                </>
+              ) : (
+                "Add Task"
+              )}{" "}
             </Button>
           </DialogFooter>
         </form>

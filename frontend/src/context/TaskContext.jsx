@@ -38,6 +38,32 @@ export const TaskProvider = ({ children }) => {
 
     fetchTasks();
   }, [token]);
+  // update task status
+  const updateTaskStatus = async (id, status) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await axios.put(
+        `${import.meta.env.VITE_API_URL}/api/tasks/update-status/${id}`,
+        { status },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json", // ⚠️ IMPORTANT
+          },
+        },
+      );
+      // 🔥 UPDATE STATE HERE (THIS IS WHAT YOU MISSED)
+      setTasks((prevTasks) =>
+        prevTasks.map((task) => (task._id === id ? { ...task, status } : task)),
+      );
+
+      return res.data;
+    } catch (error) {
+      console.error("Update error:", error.response?.data || error.message);
+      throw error;
+    }
+  };
 
   // Call this after login
   const setUserToken = (newToken) => {
@@ -58,7 +84,15 @@ export const TaskProvider = ({ children }) => {
 
   return (
     <TaskContext.Provider
-      value={{ tasks, addTask, deleteTask, loading, setUserToken, clearTasks }}
+      value={{
+        tasks,
+        addTask,
+        deleteTask,
+        loading,
+        setUserToken,
+        clearTasks,
+        updateTaskStatus,
+      }}
     >
       {children}
     </TaskContext.Provider>

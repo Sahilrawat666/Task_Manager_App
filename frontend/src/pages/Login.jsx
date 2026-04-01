@@ -14,17 +14,21 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { AuthContext } from "../context/AuthContext";
 import { TaskContext } from "../context/TaskContext"; // ✅ import TaskContext
+import { Loader2 } from "lucide-react";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const { login } = useContext(AuthContext);
   const { setUserToken } = useContext(TaskContext); // ✅ get context function
+
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/users/login`,
         {
@@ -49,6 +53,8 @@ function Login() {
       navigate("/"); // redirect to dashboard
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -98,7 +104,14 @@ function Login() {
             </div>
             <CardFooter className="flex-col gap-2 px-0">
               <Button type="submit" className="w-full cursor-pointer">
-                Login
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Logging in...
+                  </>
+                ) : (
+                  "Login"
+                )}
               </Button>
               <Button variant="outline" className="w-full cursor-pointer">
                 Login with Google

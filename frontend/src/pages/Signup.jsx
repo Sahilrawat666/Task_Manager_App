@@ -16,11 +16,13 @@ import { Link, Navigate } from "react-router-dom";
 import { toast } from "sonner";
 import { AuthContext } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 
 function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const { register } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -28,6 +30,7 @@ function Signup() {
     e.preventDefault();
 
     try {
+      setLoading(true);
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/api/users/register`,
         {
@@ -56,6 +59,8 @@ function Signup() {
       navigate("/");
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -114,7 +119,14 @@ function Signup() {
             </div>
             <CardFooter className="flex-col px-0 gap-2">
               <Button type="submit" className="w-full cursor-pointer">
-                Signup
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Creating account...
+                  </>
+                ) : (
+                  "Sign Up"
+                )}{" "}
               </Button>
               <Button variant="outline" className="w-full cursor-pointer">
                 Signup with Google

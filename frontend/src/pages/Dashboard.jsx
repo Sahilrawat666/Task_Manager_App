@@ -40,7 +40,7 @@ function Dashboard() {
         <p className="text-2xl font-semibold">Dashboard</p>
 
         <Button
-          className="bg-linear-to-r from-cyan-300 to-sky-500 active:scale-95 transition-transform duration-150 text-black cursor-pointer"
+          className="bg-linear-to-r from-cyan-300 to-sky-500 hover:scale-95 active:scale-90 transition-transform duration-150 text-black cursor-pointer"
           onClick={handleAddClick}
         >
           Add New Task
