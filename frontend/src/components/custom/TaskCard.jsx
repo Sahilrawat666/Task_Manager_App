@@ -157,7 +157,7 @@ function TaskCard({ task, onDelete }) {
             <div className="flex justify-between gap-2">
               <button
                 onClick={() => setShowConfirm(false)}
-                className="px-3 py-1 rounded-md border"
+                className="px-3 py-1 rounded-md border cursor-pointer"
               >
                 Cancel
               </button>
@@ -167,7 +167,7 @@ function TaskCard({ task, onDelete }) {
                   // setShowConfirm(false);
                   await handleDelete();
                 }}
-                className="px-3 py-1 gap-0.5 rounded-md bg-red-500 text-white flex items-center"
+                className="px-3 py-1 gap-0.5 rounded-md bg-red-500 text-white flex items-center cursor-pointer"
               >
                 {loading ? (
                   <>

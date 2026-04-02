@@ -72,7 +72,10 @@ export default function Navbar() {
           ) : (
             <>
               <Link to="/login">
-                <Button variant="outline" className="cursor-pointer">
+                <Button
+                  variant="outline"
+                  className="cursor-pointer bg-cyan-400 hover:bg-cyan-300"
+                >
                   Login
                 </Button>
               </Link>
