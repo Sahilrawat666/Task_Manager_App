@@ -51,11 +51,11 @@ export default function Navbar() {
           <NavLink to="/important" className={navLinkClass}>
             Important
           </NavLink>{" "}
-          <NavLink to="/completed" className={navLinkClass}>
+          <NavLink to="/completedTask" className={navLinkClass}>
             Completed
           </NavLink>
-          <NavLink to="/progress" className={navLinkClass}>
-            In Progresss
+          <NavLink to="/InProgressTasks" className={navLinkClass}>
+            In Progress
           </NavLink>
         </div>
 
@@ -72,10 +72,12 @@ export default function Navbar() {
           ) : (
             <>
               <Link to="/login">
-                <Button variant="outline">Login</Button>
+                <Button variant="outline" className="cursor-pointer">
+                  Login
+                </Button>
               </Link>
               <Link to="/signup">
-                <Button>Register</Button>
+                <Button className="cursor-pointer">Register</Button>
               </Link>
             </>
           )}

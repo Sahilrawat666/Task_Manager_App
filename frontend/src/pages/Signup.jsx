@@ -17,6 +17,7 @@ import { toast } from "sonner";
 import { AuthContext } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
+import zentask_i from "@/assets/zentask_i.png";
 
 function Signup() {
   const [name, setName] = useState("");
@@ -67,14 +68,28 @@ function Signup() {
     <div className="min-h-screen flex items-center justify-center bg-muted/40 px-4">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle>Signup a new account</CardTitle>
-          <CardAction>
-            <Link to="/login">
-              <Button variant="link" className="cursor-pointer">
-                Sign In
-              </Button>
-            </Link>
-          </CardAction>
+          <div
+            className="flex
+                     items-center justify-between"
+          >
+            <CardTitle className=" flex items-center justify-between ">
+              <img
+                src={zentask_i}
+                alt="ZenTask Logo"
+                className=" max-w-30 h-auto"
+              />
+            </CardTitle>
+            <CardAction className="flex items-center justify-center">
+              <Link to="/login">
+                <Button
+                  variant="link"
+                  className="cursor-pointer text-blue-500 "
+                >
+                  Sign In
+                </Button>
+              </Link>
+            </CardAction>
+          </div>
         </CardHeader>
         <CardContent>
           <form className=" flex flex-col gap-6" onSubmit={handleRegister}>
@@ -118,7 +133,10 @@ function Signup() {
               </div>
             </div>
             <CardFooter className="flex-col px-0 gap-2">
-              <Button type="submit" className="w-full cursor-pointer">
+              <Button
+                type="submit"
+                className="w-full cursor-pointer bg-cyan-500 hover:bg-cyan-600"
+              >
                 {loading ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin" />

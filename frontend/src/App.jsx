@@ -6,6 +6,8 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import { Toaster } from "sonner";
 import ImportantTasks from "./pages/ImportantTasks";
+import CompletedTasks from "./pages/completedTasks";
+import InProgressTasks from "./pages/InProgressTasks";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/important" element={<ImportantTasks />} />
+          <Route path="/completedTask" element={<CompletedTasks />} />
+          <Route path="/inProgressTasks" element={<InProgressTasks />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
       </div>

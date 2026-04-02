@@ -15,6 +15,7 @@ import { toast } from "sonner";
 import { AuthContext } from "../context/AuthContext";
 import { TaskContext } from "../context/TaskContext"; // ✅ import TaskContext
 import { Loader2 } from "lucide-react";
+import zentask_i from "@/assets/zentask_i.png";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -62,14 +63,28 @@ function Login() {
     <div className="min-h-screen flex items-center justify-center bg-muted/40 px-4">
       <Card className="w-full max-w-sm ">
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
-          <CardAction>
-            <Link to="/signup">
-              <Button variant="link" className="cursor-pointer">
-                Sign Up
-              </Button>
-            </Link>
-          </CardAction>
+          <div
+            className="flex
+           items-center justify-between"
+          >
+            <CardTitle className=" flex items-center justify-between ">
+              <img
+                src={zentask_i}
+                alt="ZenTask Logo"
+                className=" max-w-30 h-auto"
+              />
+            </CardTitle>
+            <CardAction className="flex items-center justify-center">
+              <Link to="/signup">
+                <Button
+                  variant="link"
+                  className="cursor-pointer text-blue-500 "
+                >
+                  Sign Up
+                </Button>
+              </Link>
+            </CardAction>
+          </div>
         </CardHeader>
         <CardContent>
           <form className="flex flex-col gap-6" onSubmit={handleLogin}>
@@ -89,7 +104,7 @@ function Login() {
                   <Label htmlFor="password">Password</Label>
                   <a
                     href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                    className="ml-auto cursor-pointer inline-block text-sm underline-offset-4 hover:underline"
                   >
                     Forgot your password?
                   </a>
@@ -103,7 +118,10 @@ function Login() {
               </div>
             </div>
             <CardFooter className="flex-col gap-2 px-0">
-              <Button type="submit" className="w-full cursor-pointer">
+              <Button
+                type="submit"
+                className="w-full cursor-pointer bg-cyan-500 hover:bg-cyan-600"
+              >
                 {loading ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin" />
