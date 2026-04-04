@@ -11,9 +11,9 @@ import InProgressTasks from "./pages/InProgressTasks";
 
 function App() {
   return (
-    <div>
+    <div className="w-full  px-5 md:px-10 lg:px-15">
       <Navbar />
-      <div className="m-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />

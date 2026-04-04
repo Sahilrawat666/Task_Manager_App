@@ -71,7 +71,7 @@ function Login() {
               <img
                 src={zentask_i}
                 alt="ZenTask Logo"
-                className=" max-w-30 h-auto"
+                className=" w-25 md:w-30 lg:w-35"
               />
             </CardTitle>
             <CardAction className="flex items-center justify-center">
