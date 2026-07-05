@@ -10,6 +10,8 @@ function Dashboard() {
   const [isOpen, setIsOpen] = useState(false);
   const { tasks, addTask, deleteTask, loading } = useContext(TaskContext); // ✅ use context
   const navigate = useNavigate();
+  const [editTask, setEditTask] = useState(null);
+  const [showForm, setShowForm] = useState(false);
 
   const token = localStorage.getItem("token");
 
@@ -50,15 +52,28 @@ function Dashboard() {
       {/* Task Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {tasks.map((task) => (
-          <TaskCard key={task._id} task={task} onDelete={handleDelete} />
+          <TaskCard
+            key={task._id}
+            task={task}
+            onDelete={handleDelete}
+            onEdit={(task) => {
+              setEditTask(task);
+              setShowForm(true);
+            }}
+          />
         ))}
       </div>
 
       {/* Dialog */}
       <DialogComponent
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
+        isOpen={isOpen || showForm}
+        setIsOpen={(value) => {
+          setIsOpen(value);
+          setShowForm(value);
+          if (!value) setEditTask(null);
+        }}
         addTask={addTask}
+        editTask={editTask}
       />
     </div>
   );

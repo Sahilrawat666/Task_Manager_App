@@ -78,6 +78,33 @@ export const TaskProvider = ({ children }) => {
     localStorage.removeItem("token");
   };
 
+  //update task
+  const updateTask = async (id, updatedData) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await axios.put(
+        `${import.meta.env.VITE_API_URL}/api/tasks/update-task/${id}`,
+        updatedData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      // 🔥 UPDATE STATE PROPERLY
+      setTasks((prevTasks) =>
+        prevTasks.map((task) => (task._id === id ? res.data : task)),
+      );
+
+      return res.data;
+    } catch (error) {
+      console.error(error.response?.data || error.message);
+      throw error;
+    }
+  };
+
   const addTask = (newTask) => setTasks((prev) => [...prev, newTask]);
   const deleteTask = (id) =>
     setTasks((prev) => prev.filter((task) => task._id !== id));
@@ -92,6 +119,7 @@ export const TaskProvider = ({ children }) => {
         setUserToken,
         clearTasks,
         updateTaskStatus,
+        updateTask,
       }}
     >
       {children}

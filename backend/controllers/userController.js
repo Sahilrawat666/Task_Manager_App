@@ -1,5 +1,7 @@
 import User from "../models/userModel.js";
 import generateToken from "../utils/generateToken.js";
+import { OAuth2Client } from "google-auth-library";
+
 
 /*registerController*/
 export const registerUser = async (req, res) => {
@@ -74,5 +76,50 @@ export const loginUser = async (req, res) => {
 
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+
+// google login 
+export const googleLogin = async (req, res) => {
+
+  try {
+    const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+    const { credential } = req.body;
+
+    const ticket = await client.verifyIdToken({
+      idToken: credential,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+
+    const { email, name, picture, sub } = payload;
+
+    let user = await User.findOne({ email });
+
+    // if user doesn't exist → create
+    if (!user) {
+      user = await User.create({
+        name,
+        email,
+        avatar: picture,
+        googleId: sub,
+        password: null,
+      });
+    }
+
+    const token = generateToken(user._id);
+
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      avatar: user.avatar,
+      token,
+    });
+
+  } catch (error) {
+    res.status(401).json({ message: "Google login failed" });
   }
 };

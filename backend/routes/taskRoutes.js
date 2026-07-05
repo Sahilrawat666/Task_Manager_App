@@ -68,6 +68,8 @@ router.put("/update-task/:id", async (req, res) => {
 
 });
 
+// update status 
+
 router.put("/update-status/:id", async (req, res) => {
     try {
         const { status } = req.body;

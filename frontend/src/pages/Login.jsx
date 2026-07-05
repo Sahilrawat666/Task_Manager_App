@@ -16,6 +16,8 @@ import { AuthContext } from "../context/AuthContext";
 import { TaskContext } from "../context/TaskContext"; // ✅ import TaskContext
 import { Loader2 } from "lucide-react";
 import zentask_i from "@/assets/zentask_i.png";
+import { GoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -26,6 +28,29 @@ function Login() {
 
   const navigate = useNavigate();
 
+  // handle google login
+  const handleGoogleLogin = async (credentialResponse) => {
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/users/google`,
+        {
+          credential: credentialResponse.credential,
+        },
+      );
+
+      login(res.data.token);
+      setUserToken?.(res.data.token); // safe check if exists
+
+      localStorage.setItem("token", res.data.token);
+
+      toast.success("Google login successful!");
+      navigate("/");
+    } catch (error) {
+      toast.error("Google login failed");
+    }
+  };
+
+  // handle login
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -131,9 +156,10 @@ function Login() {
                   "Login"
                 )}
               </Button>
-              <Button variant="outline" className="w-full cursor-pointer">
-                Login with Google
-              </Button>
+              <GoogleLogin
+                onSuccess={handleGoogleLogin}
+                onError={() => toast.error("Google login failed")}
+              />
             </CardFooter>
           </form>
         </CardContent>
