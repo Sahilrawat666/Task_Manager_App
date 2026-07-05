@@ -43,10 +43,13 @@ function Login() {
 
       localStorage.setItem("token", res.data.token);
 
-      toast.success("Google login successful!");
+      toast.success("User Logged in successfully!");
       navigate("/");
     } catch (error) {
-      toast.error("Google login failed");
+      console.log(error.response?.data);
+      console.log(error);
+
+      toast.error(error.response?.data?.message || "Google login failed");
     }
   };
 

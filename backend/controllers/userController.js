@@ -58,7 +58,12 @@ export const loginUser = async (req, res) => {
     if (!user) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
-
+    // Google account cannot login with password
+    if (!user.password) {
+      return res.status(400).json({
+        message: "This account uses Google Sign-In. Please continue with Google.",
+      });
+    }
     // 3️⃣ Compare password
     const isMatch = await user.matchPassword(password);
 
@@ -120,6 +125,10 @@ export const googleLogin = async (req, res) => {
     });
 
   } catch (error) {
-    res.status(401).json({ message: "Google login failed" });
+    console.error("Google Login Error:", error);
+
+    res.status(401).json({
+      message: error.message,
+    });
   }
 };
