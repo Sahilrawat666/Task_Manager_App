@@ -16,8 +16,9 @@ import { AuthContext } from "../context/AuthContext";
 import { TaskContext } from "../context/TaskContext"; // ✅ import TaskContext
 import { Loader2 } from "lucide-react";
 import zentask_i from "@/assets/zentask_i.png";
-import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+import { FcGoogle } from "react-icons/fc";
+import { GoogleLogin } from "@react-oauth/google";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -29,7 +30,7 @@ function Login() {
   const navigate = useNavigate();
 
   // handle google login
-  const handleGoogleLogin = async (credentialResponse) => {
+  const handleGoogleSuccess = async (credentialResponse) => {
     try {
       const res = await axios.post(
         `${import.meta.env.VITE_API_URL}/api/users/google`,
@@ -148,7 +149,7 @@ function Login() {
             <CardFooter className="flex-col gap-2 px-0">
               <Button
                 type="submit"
-                className="w-full cursor-pointer bg-cyan-500 hover:bg-cyan-600"
+                className="w-full cursor-pointer bg-cyan-500 hover:bg-cyan-600 py-1 px-2 sm:py-2 sm:px-4"
               >
                 {loading ? (
                   <>
@@ -159,10 +160,24 @@ function Login() {
                   "Login"
                 )}
               </Button>
-              <GoogleLogin
-                onSuccess={handleGoogleLogin}
-                onError={() => toast.error("Google login failed")}
-              />
+
+              {/* google login button*/}
+              <div className="group mt-2 relative w-full rounded-lg">
+                <div className="absolute inset-0 opacity-0 z-10">
+                  <GoogleLogin
+                    onSuccess={handleGoogleSuccess}
+                    onError={() => toast.error("Google Login Failed")}
+                  />
+                </div>
+
+                <button
+                  type="button"
+                  className="w-full flex items-center justify-center gap-1 text-sm py-1 px-2 sm:py-1.5 sm:px-4 border border-gray-300 rounded-lg bg-white text-gray-700 font-medium transition-all duration-300 hover:bg-gray-50 hover:shadow-md hover:border-gray-400"
+                >
+                  <FcGoogle size={22} />
+                  <span>Continue with Google</span>
+                </button>
+              </div>
             </CardFooter>
           </form>
         </CardContent>
