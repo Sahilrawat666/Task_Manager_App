@@ -8,6 +8,8 @@ import { Toaster } from "sonner";
 import ImportantTasks from "./pages/ImportantTasks";
 import CompletedTasks from "./pages/completedTasks";
 import InProgressTasks from "./pages/InProgressTasks";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="/completedTask" element={<CompletedTasks />} />
           <Route path="/inProgressTasks" element={<InProgressTasks />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
       </div>
       <Toaster richColors position="top-center" />

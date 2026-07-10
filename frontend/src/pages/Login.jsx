@@ -129,14 +129,14 @@ function Login() {
                 />
               </div>
               <div className="grid gap-2">
-                <div className="flex items-center">
+                <div className="flex items-center justify-between">
                   <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto cursor-pointer inline-block text-sm underline-offset-4 hover:underline"
+                  <Link
+                    to="/forgot-password"
+                    className="text-sm text-blue-600 hover:underline float-right"
                   >
-                    Forgot your password?
-                  </a>
+                    Forgot Password?
+                  </Link>
                 </div>
                 <Input
                   id="password"

@@ -1,11 +1,10 @@
+import "./config/env.js";
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./db.js";
 import router from "./routes/userRoutes.js";
 import taskRoutes from "./routes/taskRoutes.js";
 
-dotenv.config();
 
 const startServer = async () => {
   try {
