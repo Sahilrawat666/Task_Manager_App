@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaBookOpen, FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import toast from "react-hot-toast";
+import zentask_i from "../assets/zentask_i.png";
 
 const ResetPassword = () => {
   const { token } = useParams();
@@ -47,19 +48,23 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-white to-indigo-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 flex items-center justify-center px-5">
+    <div className="min-h-screen  dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 flex items-center justify-center px-5">
       <div className="w-full max-w-md">
         <form
           onSubmit={handleSubmit}
-          className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg shadow-2xl rounded-3xl p-8 border border-gray-200 dark:border-slate-700 transition-all duration-300 hover:shadow-blue-300/40"
+          className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-lg shadow-2xl rounded-3xl px-4 border border-gray-200 dark:border-slate-700 transition-all duration-300 hover:shadow-blue-300/40"
         >
-          <div className="flex justify-center mb-5">
-            <div className="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center text-white text-2xl shadow-lg">
-              <FaBookOpen />
+          <div className="flex justify-center mb-3">
+            <div className="flex justify-center ">
+              <img
+                src={zentask_i}
+                alt="ZenTask"
+                className="w-40 md:w-48 object-contain"
+              />
             </div>
           </div>
 
-          <h2 className="text-3xl font-bold text-center text-gray-800 dark:text-white">
+          <h2 className="text-xl md:text-2xl font-bold text-center text-gray-800 dark:text-white">
             Reset Password
           </h2>
 
@@ -69,7 +74,7 @@ const ResetPassword = () => {
 
           {/* Password */}
 
-          <div className="mb-5">
+          <div className="mb-4 md:mb-5">
             <label className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               New Password
             </label>
@@ -78,7 +83,7 @@ const ResetPassword = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 placeholder="Enter new password"
-                className="input input-bordered w-full rounded-xl pr-12 focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+                className="input input-bordered w-full rounded-xl pr-12 h-8 py-1 px-2 text-xs md:text-sm focus:ring-2 focus:ring-blue-500 transition-all duration-300"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -96,7 +101,7 @@ const ResetPassword = () => {
 
           {/* Confirm Password */}
 
-          <div className="mb-6">
+          <div className="mb-4 md:mb-5">
             <label className="block mb-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               Confirm Password
             </label>
@@ -105,7 +110,7 @@ const ResetPassword = () => {
               <input
                 type={showConfirmPassword ? "text" : "password"}
                 placeholder="Confirm new password"
-                className="input input-bordered w-full rounded-xl pr-12 focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+                className="input input-bordered w-full rounded-xl pr-12 h-8 py-1 px-2 text-xs md:text-sm focus:ring-2 focus:ring-blue-500 transition-all duration-300"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
@@ -122,7 +127,7 @@ const ResetPassword = () => {
           </div>
 
           <button
-            className="btn w-full rounded-xl bg-blue-600 hover:bg-blue-700 border-none text-white text-base transition-all duration-300 hover:scale-[1.02] active:scale-95 disabled:opacity-60"
+            className="btn w-full rounded-xl h-10 py-1 px-2 cursor-pointer bg-blue-600 hover:bg-blue-700 border-none text-white text-base transition-all duration-300 hover:scale-[1.02] active:scale-95 disabled:opacity-60"
             disabled={loading}
           >
             {loading ? (
@@ -138,7 +143,7 @@ const ResetPassword = () => {
           <div className="mt-6 text-center">
             <Link
               to="/login"
-              className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition duration-300 hover:gap-3"
+              className="inline-flex items-center gap-2 mb-2 text-blue-600 hover:text-blue-700 font-medium transition duration-300 hover:gap-3"
             >
               <FaArrowLeft />
               Back to Login

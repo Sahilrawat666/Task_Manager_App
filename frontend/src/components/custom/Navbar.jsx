@@ -31,7 +31,7 @@ export default function Navbar() {
       : "text-muted-foreground hover:text-primary";
 
   return (
-    <nav className="w-full border-b  px-5 md:px-10 lg:px-15">
+    <nav className="w-full border-b  px-5 md:px-10 lg:px-15 mb-2">
       <div className="max-w-7xl mx-auto flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
         {" "}
         {/* Logo */}

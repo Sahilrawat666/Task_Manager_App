@@ -39,10 +39,10 @@ function Dashboard() {
   return (
     <div className="flex flex-col gap-6 p-6">
       <div className="flex justify-between items-center">
-        <p className="text-2xl font-semibold">Dashboard</p>
+        <p className=" text-xl md:text-2xl font-semibold">Dashboard</p>
 
         <Button
-          className="bg-linear-to-r from-cyan-300 to-sky-500 hover:scale-95 active:scale-90 transition-transform duration-150 text-black cursor-pointer"
+          className=" px-2   bg-linear-to-r from-cyan-300 to-sky-500 hover:scale-95 active:scale-90 transition-transform duration-150 text-black cursor-pointer"
           onClick={handleAddClick}
         >
           Add New Task

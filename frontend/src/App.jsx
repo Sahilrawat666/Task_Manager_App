@@ -13,7 +13,7 @@ import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
-    <div className="w-full  px-5 md:px-10 lg:px-15">
+    <div className="w-full   md:px-5 lg:px-10">
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Routes>

@@ -36,11 +36,11 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen  dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 flex items-center justify-center px-5">
+    <div className="min-h-screen my-1  dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 flex items-center justify-center ">
       <div className="w-full max-w-md">
         <form
           onSubmit={handleSubmit}
-          className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-gray-200 dark:border-slate-700 rounded-3xl shadow-2xl p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-blue-400/20"
+          className="bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-gray-200 dark:border-slate-700 rounded-3xl shadow-2xl px-4 sm:px-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-blue-400/20"
         >
           {/* Logo */}
 
@@ -48,7 +48,7 @@ const ForgotPassword = () => {
             <img
               src={zentask_i}
               alt="ZenTask"
-              className="w-48 object-contain"
+              className="w-40 md:w-48 object-contain"
             />
           </div>
 
@@ -62,7 +62,7 @@ const ForgotPassword = () => {
 
           {/* Heading */}
 
-          <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-white">
+          <h2 className="text-xl md:2xl: font-bold text-center text-gray-800 dark:text-white">
             Forgot Your Password?
           </h2>
 
@@ -91,8 +91,11 @@ const ForgotPassword = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="input input-bordered w-full rounded-xl pl-11 h-12 py-1 px-2 sm:py-2 sm:px-4 focus:border-blue-500 focus:ring-2 focus:ring-blue-400 transition-all"
+                className="input input-bordered w-full text-xs md:text-sm rounded-xl pl-5 h-8 py-1 px-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-400 transition-all"
               />
+            </div>
+            <div>
+              <a href="/reset-password/:token"> reset oooooo</a>
             </div>
           </div>
 
@@ -101,7 +104,7 @@ const ForgotPassword = () => {
           <button
             type="submit"
             disabled={loading}
-            className="btn w-full mt-7 h-12 py-1 px-2 sm:py-2 sm:px-4  rounded-xl bg-blue-600 hover:bg-blue-700 border-none text-white text-base font-semibold transition-all duration-300 hover:scale-[1.02] active:scale-95 disabled:opacity-60"
+            className="btn w-full mt-7 h-10 py-1 px-2 cursor-pointer rounded-xl bg-blue-600 hover:bg-blue-700 border-none text-white text-base font-semibold transition-all duration-300 hover:scale-[1.02] active:scale-95 disabled:opacity-60"
           >
             {loading ? (
               <>
@@ -127,7 +130,7 @@ const ForgotPassword = () => {
 
           {/* Divider */}
 
-          <div className="flex items-center gap-4 my-6">
+          <div className="flex items-center gap-4 my-5">
             <div className="flex-1 h-px bg-gray-300 dark:bg-slate-700"></div>
 
             <span className="text-xs text-gray-400">Need to sign in?</span>
@@ -149,7 +152,7 @@ const ForgotPassword = () => {
 
           {/* Footer */}
 
-          <div className="mt-8 text-center text-xs text-gray-400 dark:text-gray-500">
+          <div className="mt-5 mb-2 text-center text-xs  text-gray-400 dark:text-gray-500">
             © {new Date().getFullYear()} ZenTask. All rights reserved.
           </div>
         </form>
