@@ -1,28 +1,21 @@
-import nodemailer from "nodemailer";
-import dns from "dns";
+import { Resend } from "resend";
 
-dns.setDefaultResultOrder("ipv4first");
-
-const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-    },
-    tls: {
-        rejectUnauthorized: false,
-    },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendEmail = async (to, subject, html) => {
-    await transporter.sendMail({
-        from: `"Task Manager" <${process.env.EMAIL_USER}>`,
-        to,
-        subject,
-        html,
-    });
+    try {
+        const data = await resend.emails.send({
+            from: "Task Manager <onboarding@resend.dev>",
+            to,
+            subject,
+            html,
+        });
+
+        console.log("Email sent:", data);
+    } catch (error) {
+        console.error("Resend Error:", error);
+        throw error;
+    }
 };
 
 export default sendEmail;
