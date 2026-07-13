@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaBookOpen, FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
-import toast from "react-hot-toast";
 import zentask_i from "../assets/zentask_i.png";
+import { toast } from "sonner";
 
 const ResetPassword = () => {
   const { token } = useParams();

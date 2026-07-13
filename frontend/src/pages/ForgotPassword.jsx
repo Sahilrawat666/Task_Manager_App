@@ -94,9 +94,6 @@ const ForgotPassword = () => {
                 className="input input-bordered w-full text-xs md:text-sm rounded-xl pl-5 h-8 py-1 px-2  focus:border-blue-500 focus:ring-2 focus:ring-blue-400 transition-all"
               />
             </div>
-            <div>
-              <a href="/reset-password/:token"> reset oooooo</a>
-            </div>
           </div>
 
           {/* Button */}
@@ -119,7 +116,7 @@ const ForgotPassword = () => {
           {/* Security Card */}
 
           <div className="flex items-start gap-3 mt-6 bg-blue-50 dark:bg-slate-800 rounded-xl p-4">
-            <FaShieldAlt className="text-blue-600 mt-1 flex-shrink-0" />
+            <FaShieldAlt className="text-blue-600 mt-1 " />
 
             <p className="text-xs text-gray-600 dark:text-gray-400 leading-5">
               For your security, the password reset link is valid for
