@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaArrowLeft, FaEnvelope, FaShieldAlt } from "react-icons/fa";
 import axios from "axios";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import zentask_i from "../assets/zentask_i.png";
 
 const ForgotPassword = () => {
